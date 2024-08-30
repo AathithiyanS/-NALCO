@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eaeaea;
+            color: #333;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 60px auto 2rem;
+            max-width: 800px;
+        }
+
+        .header {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-green-600 {
+            color: #38a169;
+        }
+
+        .cta-button {
+            background-color: #ffd700;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            color: #333;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #e0c300;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Prediction Results</h1>
+        <p class="text-lg">UTS: <strong>{{ UTS }}</strong></p>
+        <p class="text-lg">Elongation: <strong>{{ elongation }}</strong></p>
+        <p class="text-lg">Conductivity: <strong>{{ conductivity }}</strong></p>
+        
+        <p class="text-lg">Predicted Quality: <strong>{{ quality_pred }}</strong></p>
+        {% if suggestions %}
+            <h2 class="text-xl">Suggested Adjustments:</h2>
+            <ul>
+                {% for param, suggestion in suggestions.items() %}
+                    <li>
+                        <strong>{{ param }}:</strong><br>
+                        Optimal Value: {{ suggestion.optimal_value }}<br>
+                        Percentage Change: {{ suggestion.percentage_change|round(2) }}%
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-green-600">The quality is predicted to be high. No adjustments needed.</p>
+        {% endif %}
+        <br>
+        <center><a href="{{ url_for('home') }}" class="cta-button">Back to Home</a></center>
+    </div>
+</body>
+</html>

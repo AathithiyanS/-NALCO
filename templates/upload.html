@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Upload - Aluminium Wire Rod AI Prediction</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eaeaea;
+            color: #333;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffd700;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffffff;
+        }
+
+        /* Container Styling */
+        .container {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 60px auto 2rem;
+            max-width: 800px;
+        }
+
+        .header {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .input-field, .file-upload {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            transition: box-shadow 0.3s;
+            padding: 0.75rem;
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .input-field:focus, .file-upload:focus {
+            box-shadow: 0 0 5px #ffd700;
+            border-color: #ffd700;
+        }
+
+        .btn-submit {
+            background-color: #ffd700;
+            color: #333;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background-color: #e0c300;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('upload') }}">Data Upload</a></li>
+                <li><a href="{{ url_for('prediction') }}">Prediction</a></li>
+                <li><a href="#">Analysis</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="header">Upload Your Data</h1>
+        <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label for="file_upload" class="form-label">Upload Data File (CSV)</label>
+                <input type="file" id="file_upload" name="file_upload" class="file-upload" required>
+            </div>
+            <div class="mb-4">
+                <label for="chemical_composition" class="form-label">Enter Chemical Composition</label>
+                <input type="text" id="chemical_composition" name="chemical_composition" class="input-field" placeholder="Chemical Composition">
+            </div>
+            <div class="mb-4">
+                <label for="casting_temp" class="form-label">Enter Casting Temperature (680-750°C)</label>
+                <input type="text" id="casting_temp" name="casting_temp" class="input-field" placeholder="Casting Temperature">
+            </div>
+            <div class="mb-4">
+                <label for="cooling_water_temp" class="form-label">Enter Cooling Water Temperature (20-35°C)</label>
+                <input type="text" id="cooling_water_temp" name="cooling_water_temp" class="input-field" placeholder="Cooling Water Temperature">
+            </div>
+            <div class="mb-4">
+                <label for="casting_speed" class="form-label">Enter Casting Speed (6-12 m/min)</label>
+                <input type="text" id="casting_speed" name="casting_speed" class="input-field" placeholder="Casting Speed">
+            </div>
+            <div class="mb-4">
+                <label for="entry_temp" class="form-label">Enter Entry Temperature (400-500°C)</label>
+                <input type="text" id="entry_temp" name="entry_temp" class="input-field" placeholder="Entry Temperature">
+            </div>
+            <div class="mb-4">
+                <label for="emulsion_temp" class="form-label">Enter Emulsion Temperature (40-60°C)</label>
+                <input type="text" id="emulsion_temp" name="emulsion_temp" class="input-field" placeholder="Emulsion Temperature">
+            </div>
+            <div class="mb-4">
+                <label for="emulsion_pressure" class="form-label">Enter Emulsion Pressure (1-3 bar)</label>
+                <input type="text" id="emulsion_pressure" name="emulsion_pressure" class="input-field" placeholder="Emulsion Pressure">
+            </div>
+            <div class="mb-4">
+                <label for="emulsion_concentration" class="form-label">Enter Emulsion Concentration (2-5%)</label>
+                <input type="text" id="emulsion_concentration" name="emulsion_concentration" class="input-field" placeholder="Emulsion Concentration">
+            </div>
+            <div class="mb-4">
+                <label for="quench_pressure" class="form-label">Enter Quench Pressure (1-2 bar)</label>
+                <input type="text" id="quench_pressure" name="quench_pressure" class="input-field" placeholder="Quench Pressure">
+            </div>
+            <button type="submit" class="btn-submit">Predict</button>
+        </form>
+    </div>
+</body>
+</html>
